@@ -5,65 +5,65 @@ matriz[linha][coluna]
 import random
 
 
-def imprimir_mensagem_inicial():
+def print_initial_message():
     print("JOGO DA VELHA")
     print("Você jogará com o X e o computador com o O")
     print("As posições que podem ser escolhidas são:")
-    imprimir_tabuleiro()
+    print_board()
 
 
-def gerar_escolha_computador():
+def generate_computer_choice():
     ''' Gera uma escolha aleatória do computador'''
-    linha = random.randint(1, 3)
-    coluna = random.randint(1, 3)
-    return (linha, coluna)
+    line = random.randint(1, 3)
+    column = random.randint(1, 3)
+    return (line, column)
 
 
-def imprimir_tabuleiro():
-    print(f"| {tabuleiro[0][0]} | {tabuleiro[0][1]} | {tabuleiro[0][2]} |")
-    print(f"| {tabuleiro[1][0]} | {tabuleiro[1][1]} | {tabuleiro[1][2]} |")
-    print(f"| {tabuleiro[2][0]} | {tabuleiro[2][1]} | {tabuleiro[2][2]} |")
+def print_board():
+    print(f"| {board[0][0]} | {board[0][1]} | {board[0][2]} |")
+    print(f"| {board[1][0]} | {board[1][1]} | {board[1][2]} |")
+    print(f"| {board[2][0]} | {board[2][1]} | {board[2][2]} |")
 
 
-def avaliar_vencedor():
+def verify_if_we_have_a_winner():
     # Implementar depois
     return False
 
 
-tabuleiro = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
-imprimir_mensagem_inicial()
+board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
+print_initial_message()
 
 
-def obter_linha_no_tabuleiro_indexado_por_zero(posicao):
-    return (posicao - 1) // 3
+def get_board_line_index_by_zero(position):
+    return (position - 1) // 3
 
 
-def obter_coluna_no_tabuleiro_indexado_por_zero(posicao):
-    return (posicao - 1) % 3
+def get_board_column_index_by_zero(position):
+    return (position - 1) % 3
 
 
-def celula_esta_preenchida(linha, coluna):
-    return tabuleiro[linha][coluna] == "X" or tabuleiro[linha][coluna] =="O"
+def cell_is_filled(line, column):
+    return board[line][column] == "X" or board[line][column] == "O"
 
 
 while True:
     try:
-        posicao = int(input("Escolha uma posição conforme você viu no tabuleiro: "))
+        position = int(input("Escolha uma posição conforme você viu no tabuleiro: "))
                        
-        if posicao < 1 or posicao > 9:
+        if position < 1 or position > 9:
             raise ValueError("")
     except ValueError:
         print("Tente novamente, o número não é válido no intervalo de 1 a 9: ")
         continue
    
-    linha = obter_linha_no_tabuleiro_indexado_por_zero(posicao)
-    coluna = obter_coluna_no_tabuleiro_indexado_por_zero(posicao)
+    line = get_board_line_index_by_zero(position)
+    column = get_board_column_index_by_zero(position)
 
 
-    if celula_esta_preenchida(linha, coluna):
+    if cell_is_filled(line, column):
         print("Tente novamente, esta célula já está preenchida")
     else:
-        tabuleiro[linha][coluna] = "X"
+        board[line][column] = "X"
 
 
-    imprimir_tabuleiro()
+    print_board()
