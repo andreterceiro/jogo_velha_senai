@@ -1,5 +1,8 @@
 import random
 
+WINNER_USER = "user"
+WINNER_COMPUTER = "computer"
+
 def print_initial_message():
     ''' Prints the initial message '''
 
@@ -22,11 +25,66 @@ def print_board():
     print(f"| {board[1][0]} | {board[1][1]} | {board[1][2]} |")
     print(f"| {board[2][0]} | {board[2][1]} | {board[2][2]} |")
 
-def verify_if_we_have_a_winner():
+def get_winner():
     ''' Verify with we have one line with only one option, in another words, a winner '''
 
-    # Implementar depois
-    return False
+    # First line
+    if board[0] == board[1] and board[1] == board[2]:
+        if board[0] == "X":
+            return WINNER_USER
+        else:
+            return WINNER_COMPUTER
+
+    # Second line
+    if board[3] == board[4] and board[4] == board[5]:
+        if board[3] == "X":
+            return WINNER_USER
+        else:
+            return WINNER_COMPUTER
+
+    # Third line
+    if board[6] == board[7] and board[6] == board[8]:
+        if board[6] == "X":
+            return WINNER_USER
+        else:
+            return WINNER_COMPUTER
+
+    # First column
+    if board[0] == board[3] and board[3] == board[6]:
+        if board[0] == "X":
+            return WINNER_USER
+        else:
+            return WINNER_COMPUTER
+
+    # Second column
+    if board[1] == board[4] and board[4] == board[7]:
+        if board[1] == "X":
+            return WINNER_USER
+        else:
+            return WINNER_COMPUTER
+
+    # Third column
+    if board[2] == board[5] and board[5] == board[8]:
+        if board[2] == "X":
+            return WINNER_USER
+        else:
+            return WINNER_COMPUTER
+
+    # First diagonal
+    if board[0] == board[4] and board[4] == board[8]:
+        if board[0] == "X":
+            return WINNER_USER
+        else:
+            return WINNER_COMPUTER
+
+    # Second diagonal
+    if board[2] == board[4] and board[4] == board[6]:
+        if board[2] == "X":
+            return WINNER_USER
+        else:
+            return WINNER_COMPUTER
+
+    return None
 
 def get_board_line_index_by_zero(position):
     ''' Returns the board line to the position indexed by zero '''
@@ -65,7 +123,6 @@ while True:
    
     line = get_board_line_index_by_zero(position)
     column = get_board_column_index_by_zero(position)
-
 
     if cell_is_filled(line, column):
         print("Tente novamente, esta célula já está preenchida")
