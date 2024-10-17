@@ -7,9 +7,8 @@ def print_initial_message():
     ''' Prints the initial message '''
 
     print("JOGO DA VELHA")
-    print("Você jogará com o X e o computador com o O")
-    print("As posições que podem ser escolhidas são:")
-    print_board()
+    print("O computador começará, jogará com o 'X' e você com a O")
+    print("As posições que podem ser escolhidas são representadas por números no tabuleiro abaixo:")
 
 def generate_computer_choice():
     ''' Generates the random computer choice '''
@@ -31,58 +30,58 @@ def get_winner():
     # First line
     if board[0][0] == board[0][1] and board[0][0] == board[0][2]:
         if board[0][0] == "X":
-            return WINNER_USER
-        else:
             return WINNER_COMPUTER
+        else:
+            return WINNER_USER
 
     # Second line
     if board[1][0] == board[1][1] and board[1][0] == board[1][2]:
         if board[1][0] == "X":
-            return WINNER_USER
-        else:
             return WINNER_COMPUTER
+        else:
+            return WINNER_USER
 
     # Third line
     if board[2][0] == board[2][1] and board[2][0] == board[2][2]:
         if board[2][0] == "X":
-            return WINNER_USER
-        else:
             return WINNER_COMPUTER
+        else:
+            return WINNER_USER
 
     # First column
     if board[0][0] == board[1][0] and board[0][0] == board[2][0]:
         if board[0][0] == "X":
-            return WINNER_USER
-        else:
             return WINNER_COMPUTER
+        else:
+            return WINNER_USER
 
     # Second column
     if board[0][1] == board[1][1] and board[0][1] == board[2][1]:
         if board[0][1] == "X":
-            return WINNER_USER
-        else:
             return WINNER_COMPUTER
+        else:
+            return WINNER_USER
 
     # Third column
     if board[0][2] == board[1][2] and board[0][2] == board[2][2]:
         if board[0][2] == "X":
-            return WINNER_USER
-        else:
             return WINNER_COMPUTER
+        else:
+            return WINNER_USER
 
     # First diagonal
     if board[0][0] == board[1][1] and board[0][0] == board[2][2]:
         if board[0][0] == "X":
-            return WINNER_USER
-        else:
             return WINNER_COMPUTER
+        else:
+            return WINNER_USER
 
     # Second diagonal
     if board[0][2] == board[1][1] and board[0][2] == board[2][0]:
         if board[0][2] == "X":
-            return WINNER_USER
-        else:
             return WINNER_COMPUTER
+        else:
+            return WINNER_USER
 
     return None
 
@@ -112,25 +111,14 @@ print_initial_message()
 attempts = 0
 
 while True:
-    try:
-        position = int(input("Escolha uma posição conforme você viu no tabuleiro: "))
-                       
-        if position < 1 or position > 9:
-            raise ValueError("")
-    except ValueError:
-        print("Tente novamente, o número não é válido no intervalo de 1 a 9: ")
-        continue
-   
-    line = get_board_line_index_by_zero(position)
-    column = get_board_column_index_by_zero(position)
+    while True:
+        computer_choice = generate_computer_choice()
+        if not cell_is_filled(computer_choice[0], computer_choice[1]):
+            # print(computer_choice)
+            board[computer_choice[0]][computer_choice[1]] = "X"
+            attempts += 1
+            break
 
-    if cell_is_filled(line, column):
-        print("Tente novamente, esta célula já está preenchida")
-        continue
-    else:
-        board[line][column] = "X"
-
-    attempts += 1
     winner = get_winner()
     if winner != None:
         if winner == WINNER_USER:
@@ -138,27 +126,38 @@ while True:
         else:
             print("O computador ganhou")
         print_board()
-        break
+        quit()
     else:
+        print_board()
+
         if attempts == 9:
             print("Empate!")
-            break
+        else:
+            while True:
+                try:
+                    position = int(input("Escolha uma posição conforme você viu no tabuleiro: "))
+                                
+                    if position < 1 or position > 9:
+                        raise ValueError("")
+                except ValueError:
+                    print("Tente novamente, o número não é válido no intervalo de 1 a 9: ")
+                    continue
+    
+                line = get_board_line_index_by_zero(position)
+                column = get_board_column_index_by_zero(position)
 
-        while True:
-            computer_choice = generate_computer_choice()
-            if not cell_is_filled(computer_choice[0], computer_choice[1]):
-                # print(computer_choice)
-                board[computer_choice[0]][computer_choice[1]] = "O"
-                attempts += 1
-                break
+                if cell_is_filled(line, column):
+                    print("Tente novamente, esta célula já está preenchida")
+                    continue
+                else:
+                    board[line][column] = "O"
 
-        winner = get_winner()
-        if winner != None:
-            if winner == WINNER_USER:
-                print("Você ganhou")
-            else:
-                print("O computador ganhou")
-            print_board()
-            break
-
-        print_board()
+                    attempts += 1
+                    winner = get_winner()
+                    if winner != None:
+                        if winner == WINNER_USER:
+                            print("Você ganhou")
+                        else:
+                            print("O computador ganhou")
+                        quit()
+                    break
