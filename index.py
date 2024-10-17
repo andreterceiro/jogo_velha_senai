@@ -29,57 +29,57 @@ def get_winner():
     ''' Verify with we have one line with only one option, in another words, a winner '''
 
     # First line
-    if board[0] == board[1] and board[1] == board[2]:
-        if board[0] == "X":
+    if board[0][0] == board[0][1] and board[0][0] == board[0][2]:
+        if board[0][0] == "X":
             return WINNER_USER
         else:
             return WINNER_COMPUTER
 
     # Second line
-    if board[3] == board[4] and board[4] == board[5]:
-        if board[3] == "X":
+    if board[1][0] == board[1][1] and board[1][0] == board[1][2]:
+        if board[1][0] == "X":
             return WINNER_USER
         else:
             return WINNER_COMPUTER
 
     # Third line
-    if board[6] == board[7] and board[6] == board[8]:
-        if board[6] == "X":
+    if board[2][0] == board[2][1] and board[2][0] == board[2][2]:
+        if board[2][0] == "X":
             return WINNER_USER
         else:
             return WINNER_COMPUTER
 
     # First column
-    if board[0] == board[3] and board[3] == board[6]:
-        if board[0] == "X":
+    if board[0][0] == board[1][0] and board[0][0] == board[2][0]:
+        if board[0][0] == "X":
             return WINNER_USER
         else:
             return WINNER_COMPUTER
 
     # Second column
-    if board[1] == board[4] and board[4] == board[7]:
-        if board[1] == "X":
+    if board[0][1] == board[1][1] and board[0][1] == board[2][1]:
+        if board[0][1] == "X":
             return WINNER_USER
         else:
             return WINNER_COMPUTER
 
     # Third column
-    if board[2] == board[5] and board[5] == board[8]:
-        if board[2] == "X":
+    if board[0][2] == board[1][2] and board[0][2] == board[2][2]:
+        if board[0][2] == "X":
             return WINNER_USER
         else:
             return WINNER_COMPUTER
 
     # First diagonal
-    if board[0] == board[4] and board[4] == board[8]:
-        if board[0] == "X":
+    if board[0][0] == board[1][1] and board[0][0] == board[2][2]:
+        if board[0][0] == "X":
             return WINNER_USER
         else:
             return WINNER_COMPUTER
 
     # Second diagonal
-    if board[2] == board[4] and board[4] == board[6]:
-        if board[2] == "X":
+    if board[0][2] == board[1][1] and board[0][2] == board[2][0]:
+        if board[0][2] == "X":
             return WINNER_USER
         else:
             return WINNER_COMPUTER
