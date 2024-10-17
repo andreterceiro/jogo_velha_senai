@@ -129,4 +129,12 @@ while True:
     else:
         board[line][column] = "X"
 
-    print_board()
+    winner = get_winner()
+    if winner != None:
+        if winner == WINNER_USER:
+            print("Você ganhou")
+        else:
+            print("O computador ganhou")
+        break
+    else:
+        print_board()
