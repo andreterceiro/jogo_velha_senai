@@ -14,8 +14,8 @@ def print_initial_message():
 def generate_computer_choice():
     ''' Generates the random computer choice '''
 
-    line = random.randint(1, 3)
-    column = random.randint(1, 3)
+    line = random.randint(0, 2)
+    column = random.randint(0, 2)
     return (line, column)
 
 def print_board():
@@ -105,11 +105,11 @@ def get_board_column_index_by_zero(position):
 
 def cell_is_filled(line, column):
     ''' Returns true if the cell is filled with a computer or a user option '''
-
     return board[line][column] == "X" or board[line][column] == "O"
 
 board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
 print_initial_message()
+attempts = 0
 
 while True:
     try:
@@ -126,15 +126,39 @@ while True:
 
     if cell_is_filled(line, column):
         print("Tente novamente, esta célula já está preenchida")
+        continue
     else:
         board[line][column] = "X"
 
+    attempts += 1
     winner = get_winner()
     if winner != None:
         if winner == WINNER_USER:
             print("Você ganhou")
         else:
             print("O computador ganhou")
+        print_board()
         break
     else:
+        if attempts == 9:
+            print("Empate!")
+            break
+
+        while True:
+            computer_choice = generate_computer_choice()
+            if not cell_is_filled(computer_choice[0], computer_choice[1]):
+                # print(computer_choice)
+                board[computer_choice[0]][computer_choice[1]] = "O"
+                attempts += 1
+                break
+
+        winner = get_winner()
+        if winner != None:
+            if winner == WINNER_USER:
+                print("Você ganhou")
+            else:
+                print("O computador ganhou")
+            print_board()
+            break
+
         print_board()
